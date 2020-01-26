@@ -22,33 +22,45 @@ class NewVisitorTest(unittest.TestCase):
         self.assertIn("To-Do", header_text)
 
         # Ela é convidada a inserir um item de tarefa imediatamente
-        input_box = self.browser.find_element_by_id("id_new_item")
-        self.assertEqual(input_box.get_attribute("placeholder"), "Enter a to-do item")
+        inputbox = self.browser.find_element_by_id("id_new_item")
+        self.assertEqual(inputbox.get_attribute("placeholder"), "Enter a to-do item")
 
         # Ela digita "Buy peacock feathers" em uma caixa de texto
         # (Seu hobby é fazer iscas para pescar)
-        input_box.send_keys("Buy peacock feathers")
+        inputbox.send_keys("Buy peacock feathers")
 
         # Quando ela tecla enter a página é atualizada, agora a página lista
         # "1: Buy peacock feathers" como um item da lista de tarefas
-        input_box.send_keys(Keys.ENTER)
+        inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
 
         table = self.browser.find_element_by_id("id_list_table")
         rows = table.find_elements_by_tag_name("tr")
-        self.assertTrue(
-            any(row.text == "1: Buy peacock feathers" for row in rows),
-            "New to-do item did not appear in table",
+        self.assertIn(
+            "1: Buy peacock feathers", [row.text for row in rows],
         )
 
         # Ainda continua havendo uma caixa de texto para acrescentar outro item.
-        # ELa insere "User peacock feathers to make a fly"
-        self.fail("Finish the test!!")
+        # ELa insere "Use peacock feathers to make a fly"
+        inputbox = self.browser.find_element_by_id("id_new_item")
+        inputbox.send_keys("Use peacock feathers to make a fly")
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
 
         # A página é atualizada novamente e agora mostra dois itens em sua lista
+        table = self.browser.find_element_by_id("id_list_table")
+        rows = table.find_elements_by_tag_name("tr")
+        self.assertIn(
+            "1: Buy peacock feathers", [row.text for row in rows],
+        )
+        self.assertIn(
+            "2: Use peacock feathers to make a fly", [row.text for row in rows],
+        )
+
 
         # Ana se pergunta se o site lembrará de sua lista. Ela nota que o site
         # gerou um URL único para ela - existe um texto explicativo.
+        self.fail("Finish the test!")
 
         # Ela acessa essa URL - sua lista continua lá.
 
