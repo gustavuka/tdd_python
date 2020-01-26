@@ -13,7 +13,6 @@ class NewVisitorTest(unittest.TestCase):
         rows = table.find_elements_by_tag_name("tr")
         self.assertIn(row_text, [row.text for row in rows])
 
-
     def tearDown(self):
         self.browser.quit()
 
@@ -56,7 +55,6 @@ class NewVisitorTest(unittest.TestCase):
         rows = table.find_elements_by_tag_name("tr")
         self.check_for_row_in_list_table("1: Buy peacock feathers")
         self.check_for_row_in_list_table("2: Use peacock feathers to make a fly")
-
 
         # Ana se pergunta se o site lembrará de sua lista. Ela nota que o site
         # gerou um URL único para ela - existe um texto explicativo.
