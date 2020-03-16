@@ -1,4 +1,4 @@
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.keys import Keys
@@ -8,7 +8,7 @@ import unittest
 
 MAX_WAIT = 10
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -117,8 +117,7 @@ class NewVisitorTest(LiveServerTestCase):
         # Ela inicia uma nova lista e vê que a entrada está elegantemente
         # centralizada aí também
         inputbox.send_keys("testing")
-        inputbox.send_keys(keys.ENTER)
+        inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table("1: testing")
         inputbox = self.browser.find_element_by_id("id_new_item")
         self.assertAlmostEqual(inputbox.location["x"] + inputbox.size["width"] / 2, 512, delta=10)
-        

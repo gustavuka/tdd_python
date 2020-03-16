@@ -7,13 +7,18 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('lists', '0003_list'),
+        ("lists", "0003_list"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='item',
-            name='list',
-            field=models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.CASCADE, to='lists.List'),
+            model_name="item",
+            name="list",
+            field=models.ForeignKey(
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="lists.List",
+            ),
         ),
     ]
